@@ -10,6 +10,11 @@ const NavBar = () => {
 
     const active = (flag) => flag === true ? styles.Active : styles.NavLink;
 
+    const links = ({path, fontawesomeIcon, title}) =>
+        <NavLink to={path} className={({isActive}) => isActive ? active(true) : active(false)}>
+            <i className={`fas ${fontawesomeIcon}`}></i> {title}
+        </NavLink>
+
     return (
         <Navbar expand="md" className="bg-body-tertiary" fixed="top">
             <Container>
@@ -21,12 +26,7 @@ const NavBar = () => {
                     <Nav>
                         <>
                             {router.map((route, index) => (<div key={index}>
-                                    {route.title !== 'None' && (
-                                        <NavLink to={route.path}
-                                                 className={({isActive}) => isActive ? active(true) : active(false)}><i
-                                            className={`fas ${route.fontawesomeIcon}`}></i> {route.title}</NavLink>
-                                    )
-                                    }
+                                    {route.title !== 'None' && links(route)}
                                 </div>
 
                             ))}
