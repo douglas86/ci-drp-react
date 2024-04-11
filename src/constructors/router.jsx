@@ -6,18 +6,26 @@ import NotFound from "../components/pages/NotFound";
 export const router = [
     {
         path: '/',
-        element: <Home/>
+        title: 'Home',
+        element: <Home/>,
+        fontawesomeIcon: 'fa-home',
     },
     {
         path: '/signin',
-        element: <SignIn/>
+        title: 'Sign In',
+        element: <SignIn/>,
+        fontawesomeIcon: 'fa-sign-in-alt',
     },
     {
         path: '/signout',
-        element: <SignOut/>
+        title: 'Sign Out',
+        element: <SignOut/>,
+        fontawesomeIcon: 'fa-user-plus',
     },
     {
         path: '*',
-        element: <NotFound/>
+        title: 'None',
+        element: <NotFound/>,
+        fontawesomeIcon: '',
     }
 ]
