@@ -13,6 +13,7 @@ const App = () => {
                     <Route exact path='/' element={<h1>Home</h1>}/>
                     <Route exact path='/signin' element={<h1>Signing</h1>}/>
                     <Route exact path='/signout' element={<h1>Sign out</h1>}/>
+                    <Route path='*' element={<h1>Not found</h1>}/>
                 </Routes>
             </Container>
         </div>
