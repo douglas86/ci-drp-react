@@ -1,5 +1,6 @@
 import NavBar from "../components/NavBar";
 import Container from 'react-bootstrap/Container'
+import {Route, Routes} from 'react-router-dom'
 
 import styles from '../styles/App.module.css'
 
@@ -8,8 +9,10 @@ const App = () => {
         <div className={styles.App}>
             <NavBar/>
             <Container className={styles.Main}>
-                <h1>Home page</h1>
-                <h1>Sign in</h1>
+                <Routes>
+                    <Route exact path='/' element={<h1>Home</h1>}/>
+                    <Route exact path='/signin' element={<h1>Signing</h1>}/>
+                </Routes>
             </Container>
         </div>
     )
