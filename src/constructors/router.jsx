@@ -1,18 +1,23 @@
+import Home from '../components/pages/Home'
+import SignIn from "../components/pages/SignIn";
+import SignOut from "../components/pages/SignOut";
+import NotFound from "../components/pages/NotFound";
+
 export const router = [
     {
         path: '/',
-        element: <h1>Home</h1>
+        element: <Home/>
     },
     {
-        path: 'signin',
-        element: <h1>SignIn</h1>
+        path: '/signin',
+        element: <SignIn/>
     },
     {
-        path: 'signout',
-        element: <h1>SignUp</h1>
+        path: '/signout',
+        element: <SignOut/>
     },
     {
         path: '*',
-        element: <h1>Page Not Found</h1>
+        element: <NotFound/>
     }
 ]
