@@ -1,10 +1,10 @@
 import NavBar from "../components/NavBar";
 
-import '../styles/App.css';
+import styles from '../styles/App.module.css'
 
 const App = () => {
     return (
-        <div className="App">
+        <div className={styles.App}>
             <NavBar/>
         </div>
     )
