@@ -11,10 +11,13 @@ import {
 import appStyles from "../../../styles/App.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { SetCurrentUserContext } from "../../../constructors/App";
 
 const SignIn = () => {
+  const setCurrentUser = useContext(SetCurrentUserContext);
+
   const [signInData, setSignInData] = useState({
     username: "",
     password: "",
@@ -39,7 +42,8 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      await axios.post("dj-rest-auth/login/", signInData);
+      const { data } = await axios.post("dj-rest-auth/login/", signInData);
+      setCurrentUser(data.user);
       history("/");
     } catch (error) {
       setErrors(error.response?.data);
@@ -93,7 +97,7 @@ const SignIn = () => {
             >
               Sign up
             </Button>
-            {errors.non_field.errors?.map((message, idx) => (
+            {errors.non_field_errors?.map((message, idx) => (
               <Alert variant="warning" key={idx}>
                 {message}
               </Alert>
