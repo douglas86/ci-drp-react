@@ -1,29 +1,26 @@
-import { Link, useNavigate } from "react-router-dom";
-
 import styles from "../../../styles/SignInUpForm.module.css";
-import btnStyles from "../../../styles/Button.module.css";
-import appStyles from "../../../styles/App.module.css";
-
 import {
-  Form,
-  Button,
-  Image,
-  Col,
-  Row,
-  Container,
   Alert,
+  Button,
+  Col,
+  Container,
+  Form,
+  Image,
+  Row,
 } from "react-bootstrap";
+import appStyles from "../../../styles/App.module.css";
+import btnStyles from "../../../styles/Button.module.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-const SignUpForm = () => {
-  const [signUpData, setSignUpData] = useState({
+const SignIn = () => {
+  const [signInData, setSignInData] = useState({
     username: "",
-    password1: "",
-    password2: "",
+    password: "",
   });
 
-  const { username, password1, password2 } = signUpData;
+  const { username, password } = signInData;
 
   const [errors, setErrors] = useState({});
 
@@ -32,8 +29,8 @@ const SignUpForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setSignUpData({
-      ...signUpData,
+    setSignInData({
+      ...signInData,
       [name]: value,
     });
   };
@@ -42,8 +39,8 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post("dj-rest-auth/registration/", signUpData);
-      history("/signin");
+      await axios.post("dj-rest-auth/login/", signInData);
+      history("/");
     } catch (error) {
       setErrors(error.response?.data);
     }
@@ -53,7 +50,7 @@ const SignUpForm = () => {
     <Row className={styles.Row}>
       <Col className="my-auto py-2 p-md-2" md={6}>
         <Container className={`${appStyles.Content} p-4 `}>
-          <h1 className={styles.Header}>sign up</h1>
+          <h1 className={styles.Header}>sign in</h1>
 
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="username">
@@ -79,29 +76,12 @@ const SignUpForm = () => {
                 className={styles.Input}
                 type="password"
                 placeholder="Password"
-                name="password1"
-                value={password1}
+                name="password"
+                value={password}
                 onChange={handleChange}
               />
             </Form.Group>
-            {errors.password1?.map((message, idx) => (
-              <Alert variant="warning" key={idx}>
-                {message}
-              </Alert>
-            ))}
-
-            <Form.Group className="mb-3" controlId="password2">
-              <Form.Label className="d-none">Confirm password</Form.Label>
-              <Form.Control
-                className={styles.Input}
-                type="password"
-                placeholder="Confirm password"
-                name="password2"
-                value={password2}
-                onChange={handleChange}
-              />
-            </Form.Group>
-            {errors.password2?.map((message, idx) => (
+            {errors.password?.map((message, idx) => (
               <Alert variant="warning" key={idx}>
                 {message}
               </Alert>
@@ -113,8 +93,8 @@ const SignUpForm = () => {
             >
               Sign up
             </Button>
-            {errors.non_field_errors?.map((message, idx) => (
-              <Alert variant="warning" className="mt-3" key={idx}>
+            {errors.non_field.errors?.map((message, idx) => (
+              <Alert variant="warning" key={idx}>
                 {message}
               </Alert>
             ))}
@@ -122,7 +102,7 @@ const SignUpForm = () => {
         </Container>
         <Container className={`mt-3 ${appStyles.Content}`}>
           <Link className={styles.Link} to="/signin">
-            Already have an account? <span>Sign in</span>
+            Don't have an account? <span>Sign Up Now</span>
           </Link>
         </Container>
       </Col>
@@ -139,4 +119,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignIn;

@@ -1,5 +1,5 @@
 import Home from "../components/pages/Home";
-import SignIn from "../components/pages/SignIn";
+import SignIn from "../components/pages/auth/SignIn";
 import NotFound from "../components/pages/NotFound";
 import SignUpForm from "../components/pages/auth/SignUpForm";
 
