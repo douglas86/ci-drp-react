@@ -1,11 +1,11 @@
-import { Navbar } from "react-bootstrap";
+import NavBar from "../components/templates/NavBar";
 
 import styles from "../styles/App.module.css";
 
 const App = () => {
   return (
     <div className={styles.App}>
-      <Navbar />
+      <NavBar />
     </div>
   );
 };

@@ -1,10 +1,27 @@
+import { Container, Nav, Navbar } from "react-bootstrap";
+import logo from "../../assets/logo.png";
+
 const NavBar = () => {
   return (
-    <div>
-      <h1>Navbar placeholder</h1>
-    </div>
+    <Navbar expand="md" className="bg-body-tertiary" fixed="top">
+      <Container>
+        <Navbar.Brand href="#home">
+          <img src={logo} alt="logo" height="45px" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link>Home</Nav.Link>
+            <Nav.Link>Sign in</Nav.Link>
+            <Nav.Link>Sign up</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
+
+export default NavBar;
 
 // import { Navbar, Container, Nav } from "react-bootstrap";
 // import { NavLink } from "react-router-dom";
