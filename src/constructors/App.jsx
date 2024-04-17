@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import { Route, Routes } from "react-router-dom";
 import Home from "../components/pages/Home";
 import SignIn from "../components/pages/auth/SignIn";
+import SignUpForm from "../components/pages/auth/SignUpForm";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signin" element={<SignIn />} />
+          <Route exact path="/signup" element={<SignUpForm />} />
         </Routes>
       </Container>
     </div>
