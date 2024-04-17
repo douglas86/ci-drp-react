@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../components/pages/Home";
 import SignIn from "../components/pages/auth/SignIn";
 import SignUpForm from "../components/pages/auth/SignUpForm";
+import NotFound from "../components/pages/NotFound";
 
 const App = () => {
   return (
@@ -13,9 +14,10 @@ const App = () => {
       <NavBar />
       <Container className={styles.Main}>
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/signin" element={<SignIn />} />
-          <Route exact path="/signup" element={<SignUpForm />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route element={<NotFound />} />
         </Routes>
       </Container>
     </div>
