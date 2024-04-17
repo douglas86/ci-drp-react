@@ -10,26 +10,12 @@ import {
 } from "../../context/CurrentUserContext";
 import Avatar from "../Avatar";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import useClickOutsideToggle from "../../hooks/useClickOutsideToggle";
 
 const NavBar = () => {
   const { currentUser } = useCurrentUser();
   const { setCurrentUser } = useSetCurrentUser();
-
-  const [expanded, setExpanded] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setExpanded(false);
-      }
-    };
-
-    document.addEventListener("mouseup", handleClickOutside);
-
-    return () => document.removeEventListener("mouseup", handleClickOutside);
-  }, [ref]);
+  const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const handleSignOut = async () => {
     try {
