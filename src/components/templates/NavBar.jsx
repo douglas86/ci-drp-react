@@ -10,10 +10,26 @@ import {
 } from "../../context/CurrentUserContext";
 import Avatar from "../Avatar";
 import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 
 const NavBar = () => {
   const { currentUser } = useCurrentUser();
   const { setCurrentUser } = useSetCurrentUser();
+
+  const [expanded, setExpanded] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setExpanded(false);
+      }
+    };
+
+    document.addEventListener("mouseup", handleClickOutside);
+
+    return () => document.removeEventListener("mouseup", handleClickOutside);
+  }, [ref]);
 
   const handleSignOut = async () => {
     try {
@@ -87,7 +103,12 @@ const NavBar = () => {
   const active = (flag) => (flag === true ? styles.Active : styles.NavLink);
 
   return (
-    <Navbar expand="md" className={styles.NavBar} fixed="top">
+    <Navbar
+      expanded={expanded}
+      expand="md"
+      className={styles.NavBar}
+      fixed="top"
+    >
       <Container>
         <NavLink to="/">
           <Navbar.Brand>
@@ -95,7 +116,11 @@ const NavBar = () => {
           </Navbar.Brand>
         </NavLink>
         {currentUser && addPostIcon}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle
+          ref={ref}
+          onClick={() => setExpanded(!expanded)}
+          aria-controls="basic-navbar-nav"
+        />
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
             <NavLink
