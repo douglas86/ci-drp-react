@@ -1,11 +1,16 @@
 import NavBar from "../components/templates/NavBar";
 
 import styles from "../styles/App.module.css";
+import { Container } from "react-bootstrap";
 
 const App = () => {
   return (
     <div className={styles.App}>
       <NavBar />
+      <Container className={styles.Main}>
+        <h1>Home Page</h1>
+        <h1>Sign In</h1>
+      </Container>
     </div>
   );
 };
