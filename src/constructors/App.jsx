@@ -2,14 +2,19 @@ import NavBar from "../components/templates/NavBar";
 
 import styles from "../styles/App.module.css";
 import { Container } from "react-bootstrap";
+import { Route, Routes } from "react-router-dom";
+import Home from "../components/pages/Home";
+import SignIn from "../components/pages/auth/SignIn";
 
 const App = () => {
   return (
     <div className={styles.App}>
       <NavBar />
       <Container className={styles.Main}>
-        <h1>Home Page</h1>
-        <h1>Sign In</h1>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/signin" element={<SignIn />} />
+        </Routes>
       </Container>
     </div>
   );
