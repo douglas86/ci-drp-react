@@ -4,8 +4,29 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
 import styles from "../../styles/NavBar.module.css";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../constructors/App";
 
 const NavBar = () => {
+  const currentUser = useContext(CurrentUserContext);
+  const loggedInIcons = <>{currentUser?.username}</>;
+  const loggedOutIcons = (
+    <>
+      <NavLink
+        to="/signin"
+        className={({ isActive }) => (isActive ? active(true) : active(false))}
+      >
+        <i className="fas fa-sign-in-alt"></i> Sign in
+      </NavLink>
+      <NavLink
+        to="/signup"
+        className={({ isActive }) => (isActive ? active(true) : active(false))}
+      >
+        <i className="fas fa-user-plus"></i> Sign up
+      </NavLink>
+    </>
+  );
+
   const active = (flag) => (flag === true ? styles.Active : styles.NavLink);
 
   return (
@@ -28,22 +49,7 @@ const NavBar = () => {
             >
               <i className="fas fa-home"></i> Home
             </NavLink>
-            <NavLink
-              to="/signin"
-              className={({ isActive }) =>
-                isActive ? active(true) : active(false)
-              }
-            >
-              <i className="fas fa-sign-in-alt"></i> Sign in
-            </NavLink>
-            <NavLink
-              to="/signup"
-              className={({ isActive }) =>
-                isActive ? active(true) : active(false)
-              }
-            >
-              <i className="fas fa-user-plus"></i> Sign up
-            </NavLink>
+            {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
         </Navbar.Collapse>
       </Container>

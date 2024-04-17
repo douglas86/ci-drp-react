@@ -8,20 +8,44 @@ import SignIn from "../components/pages/auth/SignIn";
 import SignUpForm from "../components/pages/auth/SignUpForm";
 import NotFound from "../components/pages/NotFound";
 import "../api/axiosDefaults";
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+
+export const CurrentUserContext = createContext(null);
+export const SetCurrentUserContext = createContext(null);
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const handleMount = async (e) => {
+    try {
+      const { data } = await axios.get("dj-rest-auth/user/");
+      setCurrentUser(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    handleMount();
+  }, []);
+
   return (
-    <div className={styles.App}>
-      <NavBar />
-      <Container className={styles.Main}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUpForm />} />
-          <Route element={<NotFound />} />
-        </Routes>
-      </Container>
-    </div>
+    <CurrentUserContext.Provider value={{ currentUser }}>
+      <SetCurrentUserContext.Provider value={{ setCurrentUser }}>
+        <div className={styles.App}>
+          <NavBar />
+          <Container className={styles.Main}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUpForm />} />
+              <Route element={<NotFound />} />
+            </Routes>
+          </Container>
+        </div>
+      </SetCurrentUserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 };
 
