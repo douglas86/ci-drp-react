@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
 import styles from "../../styles/NavBar.module.css";
-import { useContext } from "react";
-import { CurrentUserContext } from "../../constructors/App";
+import { useCurrentUser } from "../../context/CurrentUserContext";
 
 const NavBar = () => {
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser } = useCurrentUser();
+
   const loggedInIcons = <>{currentUser?.data.username}</>;
   const loggedOutIcons = (
     <>
@@ -28,8 +28,6 @@ const NavBar = () => {
   );
 
   const active = (flag) => (flag === true ? styles.Active : styles.NavLink);
-
-  console.log("currentUser", currentUser);
 
   return (
     <Navbar expand="md" className={styles.NavBar} fixed="top">

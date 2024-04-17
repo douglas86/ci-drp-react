@@ -11,12 +11,12 @@ import {
 import appStyles from "../../../styles/App.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { SetCurrentUserContext } from "../../../constructors/App";
+import { useSetCurrentUser } from "../../../context/CurrentUserContext";
 
 const SignIn = () => {
-  const setCurrentUser = useContext(SetCurrentUserContext);
+  const setCurrentUser = useSetCurrentUser();
 
   const [signInData, setSignInData] = useState({
     username: "",
