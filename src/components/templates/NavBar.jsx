@@ -8,8 +8,8 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../../constructors/App";
 
 const NavBar = () => {
-  const currentUser = useContext(CurrentUserContext);
-  const loggedInIcons = <>{currentUser?.username}</>;
+  const { currentUser } = useContext(CurrentUserContext);
+  const loggedInIcons = <>{currentUser?.data.username}</>;
   const loggedOutIcons = (
     <>
       <NavLink
@@ -28,6 +28,8 @@ const NavBar = () => {
   );
 
   const active = (flag) => (flag === true ? styles.Active : styles.NavLink);
+
+  console.log("currentUser", currentUser);
 
   return (
     <Navbar expand="md" className={styles.NavBar} fixed="top">
