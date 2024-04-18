@@ -9,6 +9,7 @@ import SignUpForm from "../components/pages/auth/SignUpForm";
 import NotFound from "../components/pages/NotFound";
 import "../api/axiosDefaults";
 import PostCreateForm from "../components/pages/posts/PostCreateForm";
+import PostPage from "../components/pages/posts/PostPage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/posts/create" element={<PostCreateForm />} />
+          <Route path="/posts/:id" element={<PostPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
