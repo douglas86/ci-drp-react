@@ -10,14 +10,42 @@ import NotFound from "../components/pages/NotFound";
 import "../api/axiosDefaults";
 import PostCreateForm from "../components/pages/posts/PostCreateForm";
 import PostPage from "../components/pages/posts/PostPage";
+import PostsPage from "../components/pages/posts/PostsPage";
+import { useCurrentUser } from "../context/CurrentUserContext";
 
 const App = () => {
+  const { currentUser } = useCurrentUser();
+  const profile_id = currentUser?.profile_id || "";
+
   return (
     <div className={styles.App}>
       <NavBar />
       <Container className={styles.Main}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <PostsPage message="No results found. Adjust the search keyword." />
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <PostsPage
+                message="No results found. Adjust the search keyword or follow a user."
+                filter={`owner__followed__owner__profile=${profile_id}&`}
+              />
+            }
+          />
+          <Route
+            path="/liked"
+            element={
+              <PostsPage
+                message="No results found. Adjust the search keyword or like a post"
+                filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
+              />
+            }
+          />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/posts/create" element={<PostCreateForm />} />

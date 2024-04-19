@@ -4,7 +4,6 @@ import { Card, Overlay, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Avatar from "../../Avatar";
 import { axiosRes } from "../../../api/axiosDefaults";
-import * as logger from "react-dom/test-utils";
 
 const Post = (props) => {
   const {
