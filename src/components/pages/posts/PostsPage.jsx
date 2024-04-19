@@ -18,10 +18,14 @@ function PostsPage({ message, filter = "" }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
 
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data } = await axiosReq.get(`/posts/?${filter}`);
+        const { data } = await axiosReq.get(
+          `/posts/?${filter}&search=${query}`,
+        );
         setPosts(data);
         setHasLoaded(true);
       } catch (e) {
@@ -30,13 +34,30 @@ function PostsPage({ message, filter = "" }) {
     };
 
     setHasLoaded(false);
-    fetchPosts();
-  }, [filter, pathname]);
+    const timer = setTimeout(() => {
+      fetchPosts();
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [filter, query, pathname]);
 
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
         <p>Popular profiles mobile</p>
+        <i className={`fas fa-search ${styles.SearchIcon}`} />
+        <Form
+          className={styles.SearchBar}
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Form.Control
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            type="text"
+            className="mr-ms-2"
+            placeholder="Search posts"
+          />
+        </Form>
         {hasLoaded ? (
           <>
             {posts.results.length ? (
@@ -51,7 +72,7 @@ function PostsPage({ message, filter = "" }) {
           </>
         ) : (
           <Container className={appStyles.Content}>
-            <Asset spinner />{" "}
+            <Asset spinner />
           </Container>
         )}
       </Col>
